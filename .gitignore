@@ -1,0 +1,66 @@
+# Ignorar arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Maven (Backend Java)
+/buildconnect-backend/init-db/dump.sql
+/buildconnect-backend/target/
+/buildconnect-backend/.mvn/wrapper/maven-wrapper.jar
+/buildconnect-backend/pom.xml.tag
+/buildconnect-backend/pom.xml.releaseBackup
+/buildconnect-backend/pom.xml.versionsBackup
+/buildconnect-backend/pom.xml.next
+/buildconnect-backend/release.properties
+/buildconnect-backend/dependency-reduced-pom.xml
+/buildconnect-backend/build/
+/buildconnect-backend/*.log
+/buildconnect-backend/*.log.*
+/buildconnect-backend/nohup.out
+/buildconnect-backend/*.mv.db # H2 database files if used
+/buildconnect-backend/*.trace.db # H2 database files if used
+
+# Node.js (Frontend React/TypeScript)
+/buildconnect-frontend/node_modules/
+/buildconnect-frontend/dist/
+/buildconnect-frontend/build/
+/buildconnect-frontend/.env
+/buildconnect-frontend/.env.development.local
+/buildconnect-frontend/.env.test.local
+/buildconnect-frontend/.env.production.local
+/buildconnect-frontend/.env.local
+/buildconnect-frontend/npm-debug.log*
+/buildconnect-frontend/yarn-debug.log*
+/buildconnect-frontend/yarn-error.log*
+/buildconnect-frontend/report.html
+/buildconnect-frontend/coverage/
+/buildconnect-frontend/out/ # Common for some build outputs
+/buildconnect-frontend/.parcel-cache
+/buildconnect-frontend/*.log
+/buildconnect-frontend/*.log.*
+
+# IntelliJ IDEA / VS Code (Common IDE files)
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.settings/
+
+# Docker
+*.log
+*.tar
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Arquivos de configurações sensíveis ou de ambiente local
+*.env
+.env.local
+.env.development
+.env.test
+.env.production
+.DS_Store

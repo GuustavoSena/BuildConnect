@@ -1,0 +1,36 @@
+# Definição dos nossos serviços (contêineres)
+services:
+  # Nome do nosso serviço de banco de dados
+  mysql-database:
+    # Imagem que vamos usar. Recomendo usar a mesma versão que seu colega usou.
+    # Exemplo: 'mysql:8.0'
+    image: mysql:8.0.40
+    container_name: meu-projeto-bd2
+    restart: always
+    # Variáveis de ambiente para configurar o MySQL
+    environment:
+      MYSQL_ROOT_PASSWORD: '1234' 
+      MYSQL_DATABASE: 'bd2'    # Nome do banco de dados que será criado
+      # Pode criar um usuário específico também (opcional, mas boa prática)
+      # MYSQL_USER: 'meu_usuario'
+      # MYSQL_PASSWORD: 'minha_senha'
+    ports:
+      - "3306:3306"
+    # Volumes: para persistir dados e carregar o dump inicial
+    volumes:
+      # Este volume garante que os dados do banco não sejam perdidos se o contêiner for recriado
+      - mysql-data:/var/lib/mysql
+      # Esta linha é a mais importante: ela copia o seu dump SQL para uma pasta especial
+      # dentro do contêiner. O MySQL executa automaticamente qualquer .sql nesta pasta na primeira vez que inicia.
+      - ./init-db:/docker-entrypoint-initdb.d
+  
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      # Você acessará o Adminer no seu navegador através da porta 8080
+      - "8080:8080"
+
+# Declaração do volume nomeado para persistência de dados
+volumes:
+  mysql-data:
