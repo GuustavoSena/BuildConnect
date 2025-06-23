@@ -64,17 +64,23 @@ Antes de começar, garanta que você tenha as seguintes ferramentas instaladas:
     ```
 
 2.  **Inicie o Ambiente Backend**
-    
-    O banco de dados e o Adminer rodam em contêineres Docker. O `docker-compose.yml` na raiz do backend já está configurado para usar o `dump.sql` e criar o banco com todos os dados necessários.
 
-    a. **Inicie os Contêineres:** Navegue até a pasta do backend e suba os serviços com Docker Compose.
+    a. **Prepare o Banco de Dados:** O arquivo `dump.sql` com a estrutura e os dados iniciais do banco não está incluído no repositório.
+    > **⚠️ Ação Necessária:**
+    > 1. **Baixe o arquivo `dump.sql`** [**neste link do Google Drive**](https://drive.google.com/file/d/1-vncBjHBxh-Jal9TrBBMgDczAtKzuSm-/view?usp=sharing).
+    > 2. Dentro da pasta `buildconnect-backend`, crie uma nova pasta chamada `init-db`.
+    > 3. Mova o arquivo `dump.sql` que você baixou para dentro desta pasta `init-db`.
+    >
+    > _O arquivo `docker-compose.yml` precisa deste arquivo para criar e popular o banco de dados corretamente na primeira inicialização._
+
+    b. **Inicie os Contêineres:** Agora, com o `dump.sql` no lugar certo, navegue até a pasta do backend e suba os serviços com Docker Compose.
     ```bash
     cd buildconnect-backend
     docker-compose up -d
     ```
     O `-d` executa os contêineres em segundo plano. Aguarde um minuto para o banco de dados iniciar completamente.
 
-    b. **Inicie a Aplicação Spring Boot:** Na mesma pasta (`buildconnect-backend`), use o Maven Wrapper para iniciar a API.
+    c. **Inicie a Aplicação Spring Boot:** Na mesma pasta (`buildconnect-backend`), use o Maven Wrapper para iniciar a API.
     ```bash
     # No Windows
     ./mvnw spring-boot:run
