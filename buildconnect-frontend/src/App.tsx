@@ -1,6 +1,7 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from './api/axiosInstance';
+import { useSearch } from './context/SearchContext'; 
 
 interface UserProfile {
   name: string;
@@ -10,6 +11,8 @@ interface UserProfile {
 function App() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const location = useLocation(); 
+
+  const { setActiveSearchTerm } = useSearch();
 
   useEffect(() => {
     const token = localStorage.getItem('jwt_token');
@@ -30,10 +33,16 @@ function App() {
       setUser(null);
   }
 
+  const handleLogoClick = () => {
+    setActiveSearchTerm('');
+  }
+
   return (
     <div>
       <header className="bg-white shadow-md p-4 flex justify-between items-center">
-        <Link to="/" className="font-bold text-xl">BuildConnect</Link>
+        <Link to="/" className="font-bold text-xl" onClick={handleLogoClick}>
+          BuildConnect
+        </Link>
         <nav className="flex items-center space-x-4">
           {user ? (
             <>

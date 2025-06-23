@@ -14,35 +14,37 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Usuario") //indica a tabela a ser consultada
+@Table(name = "Usuario") // indica a tabela a ser consultada
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_usuario")
+	@Column(name = "id_usuario")
 	private Long id;
 	@Column(name = "e_mail")
 	private String username;
 	@Column(name = "senha")
-    private String password;
-	@Column(name= "nome")
+	private String password;
+	@Column(name = "nome")
 	private String name;
 	@Column(name = "cidade")
 	private String city;
 	@Column(name = "CPF")
 	private String cpf;
-    
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval= true)
-    @PrimaryKeyJoinColumn
-    private Professional professional;
-    
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval= true)
-    @PrimaryKeyJoinColumn
-    private Client client;
-    
-    public String getRole() {
-    	return client == null ? "PROFESSIONAL" : "CLIENT";
-    }
+	@Column(name = "Foto")
+	private String photo;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@PrimaryKeyJoinColumn
+	private Professional professional;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@PrimaryKeyJoinColumn
+	private Client client;
+
+	public String getRole() {
+		return client == null ? "PROFESSIONAL" : "CLIENT";
+	}
 }

@@ -19,6 +19,8 @@ import com.usp.buildconnect.repository.ProfessionalRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.Query;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class PostsService {
@@ -32,11 +34,9 @@ public class PostsService {
 	@Autowired
 	private ProfessionalRepository professionalRepository;
 
-	public List<PostCardDTO> findAll() {
-		List<Post> posts = postRepository.findAll();
-		return posts.stream()
-				.map(PostCardDTO::new)
-				.collect(Collectors.toList());
+	public Page<PostCardDTO> findAll(Pageable pageable) {
+		Page<Post> postsPage = postRepository.findAll(pageable);
+		return postsPage.map(PostCardDTO::new);
 	}
 
 	public Post createPost(PostCreateDTO dto) {
@@ -46,7 +46,6 @@ public class PostsService {
 		post.setTitle(dto.getTitle());
 		post.setDescription(dto.getDescription());
 		post.setProfessional(professional);
-		post.setPrice(dto.getPrice());
 
 		List<Image> images = dto.getUrl_images() != null ? dto.getUrl_images().stream()
 				.map(url -> {
@@ -63,7 +62,6 @@ public class PostsService {
 		Post post = postRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Post Not Found"));
 		post.setTitle(dto.getTitle());
 		post.setDescription(dto.getDescription());
-		post.setPrice(dto.getPrice());
 
 		List<Image> images = dto.getUrl_images() != null ? dto.getUrl_images().stream().map(
 				url -> {
@@ -80,6 +78,14 @@ public class PostsService {
 	public void deletePost(Long id) {
 		Post post = postRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Post Not Found"));
 		postRepository.delete(post);
+	}
+
+	public Page<PostCardDTO> search(String query, Pageable pageable) {
+		if (query == null || query.trim().isEmpty()) {
+			return this.findAll(pageable);
+		}
+		Page<Post> postsPage = postRepository.searchPosts(query, pageable);
+		return postsPage.map(PostCardDTO::new);
 	}
 
 	@SuppressWarnings("unchecked")

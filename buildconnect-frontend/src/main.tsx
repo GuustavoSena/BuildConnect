@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
+import { SearchProvider } from './context/SearchContext.tsx'; 
 // Imports do React Router e das nossas páginas
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HomePage } from './pages/HomePage.tsx';
@@ -41,6 +42,8 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     {/* Em vez de renderizar <App />, renderizamos o nosso provedor de rotas */}
-    <RouterProvider router={router} />
+    <SearchProvider>
+      <RouterProvider router={router} />
+    </SearchProvider>
   </React.StrictMode>,
 )

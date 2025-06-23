@@ -1,6 +1,5 @@
 package com.usp.buildconnect.entity;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.CascadeType;
@@ -31,8 +30,6 @@ public class Post {
 	private String title;
 	@Column(name = "descricao")
 	private String description;
-	@Column(name = "preco")
-	private BigDecimal price;
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
 	private List<Image> images = new ArrayList<>();

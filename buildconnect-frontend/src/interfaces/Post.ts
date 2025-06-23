@@ -1,6 +1,8 @@
 export interface Post {
   id: number;
   title: string;
-  description: string;
-  urls_image: string[];
+  firstImage: string | null;
+  professionalId: number;
+  professionalName: string;
+  averageRating: number;
 }

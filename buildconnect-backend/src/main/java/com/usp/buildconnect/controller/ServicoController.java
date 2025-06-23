@@ -14,11 +14,11 @@ import java.util.List;
 public class ServicoController {
 
     @Autowired
-    private ServicoService serviceService;
+    private ServicoService servicoService;
 
     @GetMapping
     public ResponseEntity<List<ServicoDTO>> findAll() {
-        List<ServicoDTO> services = serviceService.findAll();
-        return ResponseEntity.ok(services);
+        List<ServicoDTO> servicos = servicoService.findAll();
+        return ResponseEntity.ok(servicos);
     }
 }

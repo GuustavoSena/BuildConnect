@@ -1,25 +1,27 @@
 package com.usp.buildconnect.controller;
 
-import java.util.List;
+import com.usp.buildconnect.dto.PostCardDTO;
+import com.usp.buildconnect.services.PostsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.usp.buildconnect.dto.ProfessionalDTO;
-import com.usp.buildconnect.services.ProfessionalsService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @RestController
-@RequestMapping("/Search")
+@RequestMapping("/search")
 public class SearchController {
-	
-	@Autowired
-	private ProfessionalsService searchService;
-	
-	@GetMapping
-	public ResponseEntity<?> search(@RequestParam("query") String query){
-		List<ProfessionalDTO> list = searchService.search(query);
-		return list.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(list);
-	}
+
+    @Autowired
+    private PostsService postsService;
+
+    @GetMapping
+    public ResponseEntity<Page<PostCardDTO>> search(@RequestParam(name = "query", required = false) String query,
+            Pageable pageable) {
+        Page<PostCardDTO> results = postsService.search(query, pageable);
+        return ResponseEntity.ok(results);
+    }
 }

@@ -30,9 +30,12 @@ public class SecurityConfig {
 				.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(requests -> requests
 						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+						.requestMatchers(HttpMethod.GET, "/servicos").permitAll()
+						.requestMatchers(HttpMethod.GET, "/search").permitAll()
 						.requestMatchers(HttpMethod.GET, "/posts/**").permitAll()
-						.requestMatchers(HttpMethod.GET, "/professional/**").permitAll()
+						.requestMatchers(HttpMethod.GET, "/professionals/**").permitAll()
 						.requestMatchers("/Auth/Login", "/Auth/Login-client").permitAll()
+
 						.anyRequest().authenticated())
 				.addFilterBefore(jwtAutFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();

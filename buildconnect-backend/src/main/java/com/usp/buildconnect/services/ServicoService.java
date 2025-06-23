@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 public class ServicoService {
 
     @Autowired
-    private ServicoRepository serviceRepository;
+    private ServicoRepository servicoRepository;
 
     public List<ServicoDTO> findAll() {
-        return serviceRepository.findAll()
+        return servicoRepository.findAll()
                 .stream()
                 .map(ServicoDTO::new)
                 .collect(Collectors.toList());
